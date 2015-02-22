@@ -10,6 +10,26 @@ var users = require('./routes/users');
 
 var app = express();
 
+//routes
+app.get('/', function(req, res){
+  res.render('index', {
+    title: 'Home'
+  });
+});
+
+app.get('/about', function(req, res){
+  res.render('about', {
+    title: 'About'
+  });
+});
+
+app.get('/contact', function(req, res){
+  res.render('contact', {
+    title: 'Contact'
+  });
+});
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
