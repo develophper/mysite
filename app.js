@@ -11,7 +11,26 @@ var users = require('./routes/users');
 var mongoskin = require('mongoskin');
 var db = mongoskin.db('mongodb://localhost:27017/mysite?auto_reconnect', {safe:true});
 
+//menu
+var activeMenu = require('active-menu');
+// Create a New Instance
+var adminMenu = new activeMenu('adminMenu');
+// Set HTML Attributes for the Top <ul> element
+adminMenu.setAttributes({class : 'menu', id : 'admin-menu'});
+// Home Node
+var homeNode = adminMenu.addMenuNode('Home', '/');
+homeNode.setAttributes({class : 'home home-icon', id : 'home-link'});
+
+var postsNode = adminMenu.addMenuNode('About', '/about');
+postsNode.setAttributes({class : 'about about-icon'});
+
+var newPostNode = postsNode.addMenuNode('Contact', '/contact');
+newPostNode.setAttributes({class : 'contact-post contact-icon'});
+
 var app = express();
+
+// Use Menu
+app.use(adminMenu.menu);
 
 //routes
 app.get('/', function(req, res){
@@ -92,6 +111,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
 
 module.exports = app;
